@@ -242,10 +242,6 @@ LISTEN     0          511                     [::]:80                     [::]:*
 vagrant@vagrant:~$
 ```
 
-## 4. Проверьте используемые UDP-сокеты в Ubuntu. Какие протоколы и приложения используют эти порты?
-
-## 4. Решение:
-
 Открытые порты TCP через NMAP
 
 ```bash
@@ -259,18 +255,6 @@ PORT    STATE SERVICE
 22/tcp  open  ssh
 80/tcp  open  http
 111/tcp open  rpcbind
-```
-
-Открытые порты UDP через SS
-
-```bash
-vagrant@vagrant:~$ sudo ss -ulpn
-State      Recv-Q     Send-Q          Local Address:Port          Peer Address:Port     Process
-UNCONN     0          0              10.0.2.15%eth0:68                 0.0.0.0:*         users:(("systemd-network",pid=390,fd=19))
-UNCONN     0          0                     0.0.0.0:111                0.0.0.0:*         users:(("rpcbind",pid=572,fd=5),("systemd",pid=1,fd=116))
-UNCONN     0          0               127.0.0.53%lo:53                 0.0.0.0:*         users:(("systemd-resolve",pid=575,fd=12))
-UNCONN     0          0                        [::]:111                   [::]:*         users:(("rpcbind",pid=572,fd=7),("systemd",pid=1,fd=118))
-vagrant@vagrant:~$
 ```
 
 Просмотр служб через Lsof
@@ -299,9 +283,30 @@ sshd    1205  vagrant    4u  IPv4  27029      0t0  TCP vagrant:22->_gateway:1379
 vagrant@vagrant:~$
 ```
 
+## 4. Проверьте используемые UDP-сокеты в Ubuntu. Какие протоколы и приложения используют эти порты?
+
+## 4. Решение:
+
+Открытые порты UDP через SS
+
+```bash
+vagrant@vagrant:~$ sudo ss -ulpn
+State      Recv-Q     Send-Q          Local Address:Port          Peer Address:Port     Process
+UNCONN     0          0              10.0.2.15%eth0:68                 0.0.0.0:*         users:(("systemd-network",pid=390,fd=19))
+UNCONN     0          0                     0.0.0.0:111                0.0.0.0:*         users:(("rpcbind",pid=572,fd=5),("systemd",pid=1,fd=116))
+UNCONN     0          0               127.0.0.53%lo:53                 0.0.0.0:*         users:(("systemd-resolve",pid=575,fd=12))
+UNCONN     0          0                        [::]:111                   [::]:*         users:(("rpcbind",pid=572,fd=7),("systemd",pid=1,fd=118))
+vagrant@vagrant:~$
+```
+
+
+
 ## 5. Используя diagrams.net, создайте L3-диаграмму вашей домашней сети или любой другой сети, с которой вы работали.
 
 ## 5 Решение:
 
 
+Создал схему домашнего интернета
+
+https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&title=shema.png#R7VvbUuM4EP2aPG7KkuNLHocEhqlitrILxew%2BpZRYOBrsyCsrkOzXb8v3Sy6exCawhAewWi1Z7j4%2B3S2Lnj7y118FCRbfuUO9HtacdU8f9zBGmqHBHyXZxBLD0mOBK5iTKOWCe%2FYvTUcm0hVzaFhSlJx7kgVl4Zwvl3QuSzIiBH8tqz1xr3zXgLi0JrifE68u%2FcEcuYilNrZy%2BS1l7iK9MzKHcY9PUuXkScIFcfhrQaRf9%2FSR4FzGV%2F56RD1lvNQu8bibHb3ZwgRdyiYDHP6AH%2B9nz7NgdctG%2F9yb17%2F%2F8Vs6TSg36RNTBwyQNLmQC%2B7yJfGuc%2BmV4KulQ9W0GrRynTvOAxAiEP6kUm4Sb5KV5CBaSN9LekNJhPyivAOCuUfCkM1T8Q3zUrV4aWo9Ox85XT5fiTnd85wpdIhwqdynhzLPAKQp96kUGxgoqEckeykvhCTYcjO93PxwkXjgF7yRzPtCvFVyp5p3ClbkK%2BmxJR1lyFfeeALzjbjHRaSuj6KfyLaCP9NCj2nb6EqHHlcQh4FB074lX9KCeMwEzM74MuoSCtTJZOn7gJVkQQK1Qn%2FtKh7oL6l85eI57M89vnLUunh%2BB7j7U%2FST%2BfiFCknX%2B71cd0oyIKWYhGEsq2%2FEgtf8hUVaorQovKzpwNb9iGt%2BvCOBhJcDa%2BPb0aTm1IpxNM00I6cpszDgoi8ec5X91RS59I7MqDfhIUu8M%2BNSch8UvErHHAxJYe4rksyTCT4amrzYjK3AZjAo48ZIIXIQNkZHsNG1GjLegIzBXGLzlxoP703S%2FDuZLmqM16XWptiaUMHg4RWYIuHbM7vekNmtcxK7fiGED0AIVpkQTNw4kHTFCIMabiaCu2AwMOUFOqdB5wUKCz4NBP8Z27MVDJlmGUNYa5yN6F2ByKiB6DufMcDLBUGnIciPzdgOcCrkMxjWs5HBFtRYnSUjn6QyNBvmDwifmEAkQyecwRJzv6MKYZiVoiReWDIq9ynYiGwKaoFSCPfcB5fvY1c2Cw6oH9LH1l59uIgXnOMxM%2BHxEDUvxPYBiW0Lrxl1XrO7qs2tGmgemZArogZORhfMHJ9ORVacBvOWsnHTKOEGWVvKc7QtInaFnPRmBeh8Jb5iG%2FBMyC%2B8czKGXDBnQJyWiGeQ1W8JhPTmW4OdgWjLlu4bpFUt5kuo8VZ6KwnTr%2BY5eFgON2hg7k1c0In6aTzrNNHB5jlAU9gYzJrRxmDfwtbH2BxEuCFY9XNgVbf3YumgPtL07rGH6h%2Blvt1DjNPUt16%2Fh00P7Ho1E3Dlqis0xH1k2n0Fmlrn0aExC367omMcO%2F%2B%2FodGPrN1KYMSVDx928y2qzqLi4LwEV6Y3G5ZzBL01563DsdNsg48OBq9B1aE7NhsaR8FsopiZT961OBBtDz%2Fgm0Rn%2BxzgPVcwbR2UVnWrqfpZvqUdsOoWlY72Y6m6rop%2BR1gafiYsvQUTnlby41ry8yekC0D5WNuS3qS5D9L62Ggz%2Ffn0OwOvMNyjYThdrGYtZUGV13vr%2FtK2JMju6osLqp8SuPfhDQTRw2MDMCUECNfGVc8YK7eHQezSJ7ZW%2FFB0ew0S2flE5X%2BHhIuMUZgfHZJM%2F46Z78IDemwGv4nnMepMpfIOA%2Fa9mXM%2FUG%2FIlCyVWPgMmEh1fJtMHx774Yvbq50G0%2BAnglcLfoWQ37fLxG2ifnoqs%2BDc4bCP695FGijjrjxsfRJ2b%2FxR7Tx19440eGfdvV%2B%2Fo7r7LFllcc%2BnfBosPxz2zrd8mmLvLNuTulaGkpEUD91C6SxJ5c5zhX1teO7yWmvD9%2FWKoeJcHR9ZXtdKlerniJbK69p9DpTX5lDfp99RSfSuTsWiY6BL10wW5oJWNhVc5zOpxqbQ%2BEBsapz4Rp2WV9VPgmRlGj5QpuEaui5F2bspyvQOizJo5v98FZNV%2Fi9s%2BvV%2F
 
